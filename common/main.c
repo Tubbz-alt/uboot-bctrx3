@@ -350,7 +350,7 @@ static void process_boot_delay(void)
 #ifdef is_boot_from_usb
 	if (is_boot_from_usb()) {
 		printf("Boot from USB for mfgtools\n");
-		bootdelay = 0;
+		bootdelay = 3;
 		set_default_env("Use default environment for mfgtools\n");
 	} else {
 		printf("Normal Boot\n");

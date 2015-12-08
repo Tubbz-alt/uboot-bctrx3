@@ -106,17 +106,22 @@ static void BootpCopyNetParams(struct Bootp_t *bp)
 	memcpy(NetServerEther, ((struct ethernet_hdr *)NetRxPacket)->et_src, 6);
 #endif
 	NetCopyIP(&NetOurIP, &bp->bp_yiaddr);
+	
+	/*
 	if (strlen(bp->bp_file) > 0)
 		copy_filename(BootFile, bp->bp_file, sizeof(BootFile));
 
 	debug("Bootfile: %s\n", BootFile);
+	*/
 
 	/* Propagate to environment:
 	 * don't delete exising entry when BOOTP / DHCP reply does
 	 * not contain a new value
 	 */
-	if (*BootFile)
-		setenv("bootfile", BootFile);
+
+	//DPR prevent propogation to env
+	//if (*BootFile)
+	//	setenv("bootfile", BootFile);
 }
 
 static int truncate_sz(const char *name, int maxlen, int curlen)
