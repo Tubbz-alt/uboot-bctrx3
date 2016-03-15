@@ -394,4 +394,8 @@
 #endif
 
 
-#endif    
+#if defined (CONFIG_ANDROID_SUPPORT)
+#include "re3android_common.h"
+#endif
+
+#endif

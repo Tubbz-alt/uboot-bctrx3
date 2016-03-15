@@ -881,47 +881,10 @@ int board_late_init(void)
 
 void board_fastboot_setup(void)
 {
-	switch (get_boot_device()) {
-#if defined(CONFIG_FASTBOOT_STORAGE_SATA)
-	case SATA_BOOT:
-		if (!getenv("fastboot_dev"))
-			setenv("fastboot_dev", "sata");
-		if (!getenv("bootcmd"))
-			setenv("bootcmd", "booti sata");
-		break;
-#endif /*CONFIG_FASTBOOT_STORAGE_SATA*/
-#if defined(CONFIG_FASTBOOT_STORAGE_MMC)
-	case SD1_BOOT:
-	case MMC1_BOOT:
-		if (!getenv("fastboot_dev"))
-			setenv("fastboot_dev", "mmc0");
-		if (!getenv("bootcmd"))
-			setenv("bootcmd", "booti mmc0");
-		break;
-	case SD3_BOOT:
-	case MMC3_BOOT:
-		if (!getenv("fastboot_dev"))
-			setenv("fastboot_dev", "mmc1");
-		if (!getenv("bootcmd"))
-			setenv("bootcmd", "booti mmc1");
-		break;
-#endif /*CONFIG_FASTBOOT_STORAGE_MMC*/
-#if defined(CONFIG_FASTBOOT_STORAGE_NAND)
-	case NAND_BOOT:
-		if (!getenv("fastboot_dev"))
-			setenv("fastboot_dev", "nand");
-		if (!getenv("fbparts"))
-			setenv("fbparts", ANDROID_FASTBOOT_NAND_PARTS);
-		if (!getenv("bootcmd"))
-			setenv("bootcmd",
-				"nand read ${loadaddr} ${boot_nand_offset} "
-				"${boot_nand_size};booti ${loadaddr}");
-		break;
-#endif /*CONFIG_FASTBOOT_STORAGE_NAND*/
-	default:
-		printf("unsupported boot devices\n");
-		break;
-	}
+	if (!getenv("fastboot_dev"))
+		setenv("fastboot_dev", "mmc0");
+	if (!getenv("bootcmd"))
+		setenv("bootcmd", "booti mmc0");
 }
 
 #ifdef CONFIG_ANDROID_RECOVERY
